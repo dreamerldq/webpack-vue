@@ -36,6 +36,18 @@ pages.forEach((key) => {
 const common_config = {
   entry,
   output,
+  optimization: {
+    splitChunks: {  //拆分vue第三方包为独立的模块
+        cacheGroups: {
+          vendor: {
+            chunks: "initial",
+            test: /vue/,
+            name: 'vue',
+            enforce:true
+            }
+        }
+    }
+  },
   module: {
     rules: [
       {
@@ -94,7 +106,7 @@ const common_config = {
   plugins,
   devServer: {
     noInfo: true
-  }
+  },
 }
 
 module.exports =  common_config
