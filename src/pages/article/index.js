@@ -1,11 +1,12 @@
-import Vue from 'vue'
-import HeaderIndex from './HeaderIndex.vue'
+import Vue from 'vue';
+import HeaderIndex from './HeaderIndex.vue';
+
 new Vue({
-  el:'#app',
-  components:{
-    'index-header': HeaderIndex
+  el: '#app',
+  components: {
+    'index-header': HeaderIndex,
   },
-  created(){
-    console.log("AAA")
-  }
-})
+  created() {
+    console.log('AAA');
+  },
+});

@@ -105,7 +105,8 @@ const common_config = {
   },
   plugins,
   devServer: {
-    noInfo: true
+    noInfo: true,
+    stats: 'errors-only',
   },
 }
 

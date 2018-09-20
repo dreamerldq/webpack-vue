@@ -7,14 +7,15 @@
 </template>
 
 <script>
-import img from 'images/1.jpeg'
+import img from 'images/1.jpeg';
+
 export default {
-  data(){
-    return{
-      image: img
-    }
-  }
-}
+  data() {
+    return {
+      image: img,
+    };
+  },
+};
 </script>
 
 <style src="./index.scss" lang="scss">
