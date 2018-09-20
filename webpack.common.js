@@ -5,28 +5,29 @@ const basic_path = path.resolve()
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer')
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 const pages = fs.readdirSync(path.resolve(__dirname, 'src/pages'))
 
-const entry = {}
+const entry = {
+}
 
 const output = {
   filename: 'js/[name].bundle.js',
   path: path.join(basic_path, 'build'),
+  // publicPath: ''  // 静态资源线上存储路径
 }
 
 const plugins = [
   new VueLoaderPlugin(),
   new CleanWebpackPlugin(['build']),
-  new CopyWebpackPlugin([
-    {from:'images',to:'images'} 
-]), 
+  // new CopyWebpackPlugin([   // 图片备用处理方案，不使用dns情况下
+  //   {from:'images',to:'images'} 
+  // ]), 
 ]
 pages.forEach((key) => {
   entry[key] = `${basic_path}/src/pages/${key}/index.js`,
   plugins.push(new HtmlWebpackPlugin({
-    filename: `${key}.html`,
+    filename: `html/${key}.html`,
     template: path.join(__dirname, 'src', 'index.html'),
     chunks: [key],
     inject: true,
@@ -38,13 +39,18 @@ const common_config = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
-            loader: 'file-loader',
-            options: {},
-          },
-        ],
+            loader: 'url-loader',
+            options: {
+              limit: 8192, // 图片小于指定大小，会将文件转换成DataURL， 大于则类似file-loader处理
+              name:'[name].[ext]',
+              outputPath:'/images', // 设置成绝对路径， dev => /images   prod => ../images 
+              // publicPath: '' //静态资源路径
+            }
+          }
+        ]
       },
       {
         test: /\.vue$/,
@@ -81,10 +87,14 @@ const common_config = {
   resolve:{
     alias:{
       vue$:'vue/dist/vue.esm.js',  // 天坑...  不添加这个Vue无法正常获取el
-      // images: path.join(__dirname, 'public', 'images')
-    }
+      images: path.join(__dirname, 'images')
+    },
+    extensions: [".js", ".vue" ,".json"]
   },
   plugins,
+  devServer: {
+    noInfo: true
+  }
 }
 
 module.exports =  common_config
