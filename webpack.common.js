@@ -77,7 +77,15 @@ const common_config = {
         ],
         exclude: /node_modules/,
       },
-
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 50000,
+          name: '[name].[ext]',
+          outputPath: '/fonts',
+        },
+      },
       {
         test: /\.css$/,
         use: [

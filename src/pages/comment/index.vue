@@ -2,6 +2,7 @@
 <div class="container">
   <h1 >{{name}}</h1>
   <header-index></header-index>
+  <el-button type="primary">主要按钮</el-button>
 </div>
 </template>
 
