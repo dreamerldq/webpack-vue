@@ -102,6 +102,8 @@ const common_config = {
     alias: {
       vue$: 'vue/dist/vue.esm.js', // 天坑...  不添加这个Vue无法正常获取el
       images: path.join(__dirname, 'images'),
+      components: path.join(__dirname, 'src', 'components'),
+      services: path.join(__dirname, 'src', 'services'),
     },
     extensions: ['.js', '.vue', '.json'],
   },
