@@ -1,5 +1,6 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+
 module.exports = merge(common, {
   mode: 'development',
   devtool: 'source-map',
@@ -12,9 +13,9 @@ module.exports = merge(common, {
           {
             loader: 'css-loader',
             options: {
-             
+
               minimize: true,
-            
+
             },
           },
           { loader: 'sass-loader' },
